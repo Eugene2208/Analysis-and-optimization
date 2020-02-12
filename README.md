@@ -1,0 +1,2 @@
+# Analysis-and-optimization
+The aim of this repository is to provide codes for various approaches to "optimization problems" which arise in economics, engineering, and the social and physical sciences. Roughly speaking, the problem is to minimize or maximize a given function over a set of variables, satisfying given constraints. Depending of properties of the function and the constraints, there are different methods of solving this problem.
