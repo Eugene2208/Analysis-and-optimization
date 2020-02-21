@@ -2,29 +2,44 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.linalg import inv 
 
-# f(x) = 3x_1 + x_2 + 9x_3 + x_4
-# x_1 + 2x_2 + x_4 = 4
-# x_2 + x_3 - x_4 = 2
-# x_1, x_2, x_3, x_4 >= 0
 
+'''
+In mathematical optimization, Dantzig's simplex algorithm (or simplex method)
+is a popular algorithm for linear programming. The implementation is based on 
+the Note.pdf.
+
+Sample 1:
+For the standard system below
+
+    Objective Function
+    f(x) = 3x_1 + x_2 + 9x_3 + x_4 -> min
+    with constraints
+    x_1 + 2x_2 + x_4 = 4
+    x_2 + x_3 - x_4 = 2
+    x_1, x_2, x_3, x_4 >= 0
+
+the number of variable is 4
+the number of constraint is 2
+
+we have a matrix 
+
+S = [3 1 9  1 0  # Coefficients of the Objective Function; Last 0 is for aligned
+     1 2 0  1 3  # Coefficients of the first constraint
+     0 1 1 -1 2] # Coefficients of the second constraint
+'''
 
 n_var        = 4
 n_constraint = 2
 
 s = np.array([[3, 1, 9, 1, 0], [1, 0, 2, 1, 4], [0, 1, 1, -1, 2]])
 
-#Q4
-n_var        = 5
-n_constraint = 3
+'''
+Inital Step-up and check 
+'''
 
-s = np.array([[3,-1,-4,0,0,0],[0,-1,1,1,0,1],[-5,1,1,0,0,2],[-8,1,2,0,-1,3]])
-
-#Q5
-n_var        = 6
-n_constraint = 3
-s = np.array([[-2,-3,0,1,0,0,0],[2,-1,0,-2,1,0,16],[3,2,1,-3,0,0,18],[-1,3,0,4,0,1,24]])
-
-
+if np.shape(s)[0] != n_constraint - 1 or np.shape(s)[1] != n_var - 1:
+    print("The Dimension of the matrix is wrong!")
+    
 f = s[0,:-1]
 A = s[1:,:-1]
 l = s[1:,-1:]
@@ -98,5 +113,25 @@ while 1 == 1:
     
     Basis.sort()
     Rest.sort()
-    print("w\n",w,"\nNew Bases\n", Basis, "\nRest\n",Rest)
+    print("w\n",w,"\nNew Bases\n", Basis)
     print("------------------------------------------")
+    
+    
+'''
+Few more samples
+#Q4
+n_var        = 5
+n_constraint = 3
+
+s = np.array([[3,-1,-4,0,0,0],[0,-1,1,1,0,1],[-5,1,1,0,0,2],[-8,1,2,0,-1,3]])
+
+#Q5
+n_var        = 6
+n_constraint = 3
+s = np.array([[-2,-3,0,1,0,0,0],[2,-1,0,-2,1,0,16],[3,2,1,-3,0,0,18],[-1,3,0,4,0,1,24]])
+
+# in class samplee
+n_var        = 5
+n_constraint = 3
+s = np.array([[4,6,8,0,0,0],[-1,1,1,0,0,11],[1,1,0,1,0,27],[2,5,0,0,1,90]])
+'''
